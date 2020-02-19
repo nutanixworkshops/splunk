@@ -6,7 +6,7 @@
   :name: _labs
   :hidden:
 
-  examplelab1/examplelab1
+  splunkobjectslab/splunkobjectslab
   examplelab2/examplelab2
 
 .. toctree::
