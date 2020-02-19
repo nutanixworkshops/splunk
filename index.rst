@@ -6,25 +6,8 @@
   :name: _labs
   :hidden:
 
-  examplelab1/examplelab1
-  examplelab2/examplelab2
+  splunkobjectslab/splunkobjectslab
 
-.. toctree::
-  :maxdepth: 2
-  :caption: Optional Labs
-  :name: _optional_labs
-  :hidden:
-
-  examplelab3/examplelab3
-
-.. toctree::
-  :maxdepth: 2
-  :caption: Appendix
-  :name: _appendix
-  :hidden:
-
-  appendix/glossary
-  appendix/otherstuff
 
 .. _getting_started:
 
@@ -32,15 +15,12 @@
 Getting Started
 ---------------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed velit odio, ultrices sed elementum vitae, dictum eget turpis. Etiam ultrices orci quis tempus tempus. Nulla non nibh imperdiet, suscipit risus quis, eleifend nisl. Morbi at posuere nibh, quis bibendum dui. Morbi dictum sem a ipsum bibendum condimentum. Suspendisse id ante gravida, efficitur leo a, consequat enim. Suspendisse tempor lorem vel purus scelerisque, vel facilisis lorem consequat. Pellentesque augue orci, iaculis vel mollis sit amet, scelerisque a tellus. Aliquam commodo in lectus feugiat porta.
+Splunk SmartStore coupled with Nutanix Objects is a great way to scale any Splunk Deployment, while maintaining control on costs. Check out the new Splunk/Objects lab for more details!
 
 What's New
 ++++++++++
 
-- Workshop updated for the following software versions:
-  - AOS 5.6
-  - AFS 3.0
-- Added :ref:`example_lab_3`
+- Added Splunk Objects Lab
 
 Access Instructions
 +++++++++++++++++++
