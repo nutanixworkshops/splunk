@@ -123,9 +123,64 @@ The username and password should be as you set them above:
 
 .. figure:: images/12.png
 
-Not a lot going on right now, so let's give Splunk something to do.
+There's not a lot going on right now, but before we give Splunk something to do, we need to connect it to Nutanix Objects.
 
 .. figure:: images/13.png
+
+Configure SmartStore
+++++++++++++++++++++
+
+Let's create a bucket, then configure SmartStore.
+
+**TODO: TO BE FINISHED**
+
+Gather the required information:
+
+  - MYOBJECTSACCESSKEY: You should have this from the AMI Key section above
+  - MYOBJECTSSECRETKEY: You should have this from the AMI Key section above
+  - OBJECTSCLIENTIP: You can get this from **☰ Menu > Services > Objects**
+
+.. figure:: images/17.png
+
+SSH into the Splunk VM (Putty on Windows, Terminal on Mac)
+
+  - User: root
+  - Pass: nutanix/4u
+
+.. code-block:: bash
+
+  ssh root@10.38.19.50
+
+Use **vi** or **nano** to edit the following file:
+
+.. code-block:: bash
+
+  vi /opt/splunk/etc/system/local/indexes.conf
+  OR
+  nano /opt/splunk/etc/system/local/indexes.conf
+
+The file contents should look like the below. Ensure to replace any **ALL CAPS** sections with your relevant details.
+
+.. code-block:: bash
+
+  [default]
+  remotePath = volume:remote_store/$_index_name
+
+  [volume:remote_store]
+  storageType = remote
+  path = s3://MYAWESOMEBUCKETHERE/
+  remote.s3.access_key = MYOBJECTSACCESSKEY
+  remote.s3.secret_key = MYOBJECTSSECRETKEY
+  remote.s3.endpoint = https://OBJECTSCLIENTIP
+  remote.s3.auth_region = us-east-1
+
+  [main]
+  hotTimePeriodInSecs=60
+
+Save the file (Nano: CTRL+O, CTRL+X, or VI: ESC, :wq ENTER ).
+
+We'll restart Splunk in the next section after installing the Log Generator App.
+
 
 Install Log Generator App
 +++++++++++++++++++++++++
@@ -167,57 +222,12 @@ Click on **Settings > Data Inputs**.
 
 Click on **GoGen**.
 
+**TODO: TO BE FINISHED**
 
+Data in Objects
++++++++++++++++
 
-Configure SmartStore
-++++++++++++++++++++
-
-Now let's configure Splunk SmartStore.
-
-SSH into the Splunk VM (Putty on Windows, Terminal on Mac)
-
-  - User: root
-  - Pass: nutanix/4u
-
-.. code-block:: bash
-
-  ssh root@10.38.19.50
-
-Use **vi** or **nano** to edit the following file:
-
-.. code-block:: bash
-
-  vi /opt/splunk/etc/system/local/indexes.conf
-  OR
-  nano /opt/splunk/etc/system/local/indexes.conf
-
-The file contents should look like the below. Ensure to replace any **ALL CAPS** sections with your relevant details.
-
-.. code-block:: bash
-
-  [default]
-  remotePath = volume:remote_store/$_index_name
-
-  [volume:remote_store]
-  storageType = remote
-  path = s3://MYAWESOMEBUCKETHERE/
-  remote.s3.access_key = MYOBJECTSACCESSKEY
-  remote.s3.secret_key = MYOBJECTSSECRETKEY
-  remote.s3.endpoint = https://OBJECTSCLIENTIP
-  remote.s3.auth_region = us-east-1
-
-  [main]
-  hotTimePeriodInSecs=60
-
-Save the file (Nano: CTRL+O, CTRL+X, or VI: ESC, :wq ENTER ).
-
-Restart **Splunk** so the new configuration comes into effect.
-
-.. code-block:: bash
-
-  /opt/splunk/bin/splunk restart
-
-
+Let's head back over to Prism Central and check out the
 
 Takeaways
 +++++++++
