@@ -95,7 +95,7 @@ Now let's download the tar files for Splunk and get Splunk installed.
   echo 'PASSWORD = nutanix/4u' >> /tmp/user-seed.conf
   export SPLUNK_HOME=/opt/splunk
   export PATH=$SPLUNK_HOME/bin:$PATH
-  cp -rp splunk/* /opt/splunk/splunk
+  cp -rp splunk/* /opt/splunk/
   mv /tmp/user-seed.conf $SPLUNK_HOME/etc/system/local
   echo '[clustering]' >> $SPLUNK_HOME/etc/system/local/server.conf
   echo 'mode = master' >> $SPLUNK_HOME/etc/system/local/server.conf
@@ -104,6 +104,8 @@ Now let's download the tar files for Splunk and get Splunk installed.
   echo 'pass4SymmKey = nutanix/4u' >> $SPLUNK_HOME/etc/system/local/server.conf
   echo 'cluster_label = cluster1' >> $SPLUNK_HOME/etc/system/local/server.conf
   splunk start --answer-yes --no-prompt --accept-license
+
+.. figure:: images/11.png
 
 At this point Splunk should be installed and running, but we need to make a small firewall change in order to connect to it.
 
@@ -119,6 +121,11 @@ The username and password should be as you set them above:
   - admin
   - nutanix/4u
 
+.. figure:: images/12.png
+
+Not a lot going on right now, so let's give Splunk something to do.
+
+.. figure:: images/13.png
 
 Install Log Generator App
 +++++++++++++++++++++++++
@@ -139,7 +146,28 @@ Copy down the GoGen files, modified for Nutanix/Splunk.
 .. code-block:: bash
 
   cd /tmp
-  curl 
+  curl -LJO https://github.com/livearchivist/splunk/raw/master/assets/TA-Nutanix.zip -o TA-Nutanix.zip
+  yum install unzip -y
+  unzip TA-Nutanix.zip
+  cp -r gogen-master/splunk_app_gogen /opt/splunk/etc/apps/
+
+Restart **Splunk** so the new application shows up.
+
+.. code-block:: bash
+
+  /opt/splunk/bin/splunk restart
+
+Now log back into the Splunk web interface, you'll see that **GoGen** is now showing up in the application list.
+
+.. figure:: images/14.png
+
+Click on **Settings > Data Inputs**.
+
+.. figure:: images/15.png
+
+Click on **GoGen**.
+
+
 
 Configure SmartStore
 ++++++++++++++++++++
