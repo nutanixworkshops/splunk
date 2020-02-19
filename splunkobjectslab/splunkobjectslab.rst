@@ -263,6 +263,10 @@ After a little bit of time, you should be able to head over to Objects in PC and
 
   splunk _internal call /data/indexes/main/roll-hot-buckets -auth admin:nutanix/4u
 
+You can see in the performance information for my bucket that there have been some Puts and Gets, although the timeline is short for the purposes of this demo, these patterns would continue.
+
+.. figure:: images/25.png
+
 Takeaways
 +++++++++
 
