@@ -37,6 +37,32 @@ Click on **Download Keys**. Depending on your browser, it will either open a new
 
 .. figure:: images/4.png
 
+Create Bucket Using AMI User
+++++++++++++++++++++++++++++
+
+Since Object Storage uses API keys to grant access to various buckets, we'll want to create a bucket using the API key we just created above.
+
+Open Cyberduck (Specifically v6.9.4, as newer versions have some issues) - https://cyberduck.io/changelog/
+
+Open Connection.
+
+.. figure:: images/18.png
+
+Choose **Amazon S3** as the Connection Type, then fill in your details and click Connect.
+
+.. figure:: images/19.png
+
+Click **Continue** when the certificate error pops up.
+
+.. figure:: images/20.png
+
+Right Click and choose **New Folder**, the folder name will be the name of the bucket.
+
+.. figure:: images/21.png
+
+.. figure:: images/22.png
+
+If you check in the Objects console, you'll see that a new bucket has been created.
 
 Install Splunk
 ++++++++++++++
@@ -88,7 +114,7 @@ Now let's download the tar files for Splunk and get Splunk installed.
 
   mkdir /opt/splunk
   cd /tmp
-  curl http://10.42.194.11/workshop_staging/splunk-8.0.1.tar -o splunk-8.0.1.tar
+  curl http://10.42.194.11/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
   tar -xvf splunk-8.0.1.tar
   echo '[user_info]' > /tmp/user-seed.conf
   echo 'USERNAME = admin' >> /tmp/user-seed.conf
@@ -129,10 +155,6 @@ There's not a lot going on right now, but before we give Splunk something to do,
 
 Configure SmartStore
 ++++++++++++++++++++
-
-Let's create a bucket, then configure SmartStore.
-
-**TODO: TO BE FINISHED**
 
 Gather the required information:
 
@@ -222,16 +244,28 @@ Click on **Settings > Data Inputs**.
 
 Click on **GoGen**.
 
-**TODO: TO BE FINISHED**
+**Disable** retail_transaction temporarily. Click on the stanza name: **retail_transaction**.
+
+Fill in the fields to look like the below image, click save:
+
+.. figure:: images/23.png
+
+Re-enable **retail_transaction**.
+
+.. figure:: images/24.png
 
 Data in Objects
 +++++++++++++++
 
-Let's head back over to Prism Central and check out the
+After a little bit of time, you should be able to head over to Objects in PC and see that your bucket is being populated with data. If after a period of time, you're not seeing this, you can try running the following script from the Splunk server:
+
+.. code-block:: bash
+
+  splunk _internal call /data/indexes/main/roll-hot-buckets -auth admin:nutanix/4u
 
 Takeaways
 +++++++++
 
-- Here is where we summarize any key takeaways from the module
-- Such as how a Nutanix feature used in the lab delivers value
-- Or highlighting a differentiator
+- SmartStore is simple to configure with Nutanix Objects
+- You can easily generate test data for your POCs using the GoGen data generator
+- Nutanix Objects makes it easy for your customers to migrate to SmartStore, giving them the flexibility to scale incrementally as their Splunk environment grows.
