@@ -153,6 +153,14 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
       .. figure:: images/10.png
 
+#. Click **Update** in the Prism UI for the VM, then modify the **vDisk**.
+
+      .. figure:: images/26.png
+
+#. Change the **vDisk** size to **100GiB** and click save.
+
+      .. figure:: images/27.png
+
 #. SSH into the Splunk VM using the following credentials (Putty on Windows, Terminal on Mac):
 
     - **Username** - root
@@ -161,6 +169,38 @@ Now let's set up a Splunk virtual machine to connect to Objects.
    .. code-block:: bash
 
      ssh root@10.38.19.50
+
+#. Modify the root partition to take advantage of the extra space.
+
+   .. note::
+
+     Please manually type this step, do not copy it in!
+
+   .. code-block:: bash
+
+    fdisk /dev/sda
+
+    p # Print table
+    d # Delete
+    2 # Deletes second partition, since Partition 1 is /boot
+    n # New Partition
+    p # New Primary Partition
+    2 # New Primary Partition - /dev/sda2
+    Accept defaults for Start Block and End Block
+    t # Partition Type
+    2 # Partition 2
+    8e # Change partition type to "Linux LVM"
+    p # Print new partition table
+    w # Write New Partition Table
+
+#. Update Kernel Partition Table and Resize Volume
+
+   .. code-block:: bash
+
+    partx -u /dev/sda
+    pvresize /dev/sda2
+    lvextend -r centos_centos/root /dev/sda2
+
 
 #. Now let's download the tar files for Splunk and get Splunk installed.
 
@@ -250,9 +290,6 @@ Configure SmartStore
      remote.s3.endpoint = https://OBJECTSCLIENTIP
      remote.s3.auth_region = us-east-1
 
-     [main]
-     hotTimePeriodInSecs=60
-
 #. Save the file (Nano: CTRL+O, CTRL+X, or VI: ESC, :wq ENTER ).
 
    .. note::
@@ -300,15 +337,22 @@ Now let's install the log generator app, so we can give Splunk something to cons
 
 #. Click on **GoGen**.
 
-#. **Disable** retail_transaction temporarily. Click on the stanza name: **retail_transaction**.
+#. Click on the stanza name: **retail_transaction**.
 
 #. Fill in the fields to look like the below image, click save:
 
    .. figure:: images/23.png
 
-#. Re-enable **retail_transaction**.
+#. Enable **retail_transaction**.
 
    .. figure:: images/24.png
+
+#. Restart **Splunk** one more time.
+
+   .. code-block:: bash
+
+     /opt/splunk/bin/splunk restart
+
 
 Data in Objects
 +++++++++++++++
@@ -317,7 +361,7 @@ After a little bit of time, you should be able to head over to Objects in PC and
 
 .. note::
 
-   If after a period of time, you're not seeing this, you can try running the following script from the Splunk server:
+   If after 5 minutes, you're not seeing this, you can try running the following script from the Splunk server:
 
    .. code-block:: bash
 
