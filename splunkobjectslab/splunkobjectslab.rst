@@ -158,9 +158,9 @@ Now let's set up a Splunk virtual machine to connect to Objects.
     - **Username** - root
     - **Password** - nutanix/4u
 
-  .. code-block:: bash
+   .. code-block:: bash
 
-    ssh root@10.38.19.50
+     ssh root@10.38.19.50
 
 #. Now let's download the tar files for Splunk and get Splunk installed.
 
