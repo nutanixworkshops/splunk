@@ -128,12 +128,12 @@ Now let's set up a Splunk virtual machine to connect to Objects.
       - **Image** - CentOS7.qcow2
       - Select **Add**
 
-  .. figure:: images/6.png
-
-   - Select **Add New NIC**
+  - Select **Add New NIC**
       - **VLAN Name** - Primary
       - Select **Add**
 
+  .. figure:: images/6.png
+  
   .. figure:: images/7.png
 
 #. Click **Save** to create the VM.
