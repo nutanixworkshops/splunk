@@ -275,6 +275,10 @@ Configure SmartStore
      OR
      nano /opt/splunk/etc/system/local/indexes.conf
 
+   .. note::
+
+     If you're using **vi**, ensure to type "**i**" to enter **INSERT** mode.
+
 #. The file contents should look like the below. Ensure to replace any **ALL CAPS** sections with your relevant details.
 
    .. code-block:: bash
