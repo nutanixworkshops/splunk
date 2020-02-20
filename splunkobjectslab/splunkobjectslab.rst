@@ -68,7 +68,7 @@ In this exercise you will use `Cyberduck <https://cyberduck.io/>`_ to create and
 
 #. Click on **Open Connection**.
 
-.. figure:: images/18.png
+   .. figure:: images/18.png
 
 #. Select **Amazon S3** from the dropdown list.
 
@@ -79,11 +79,11 @@ In this exercise you will use `Cyberduck <https://cyberduck.io/>`_ to create and
    - **Access Key ID**  - *Generated When User Created*
    - **Password (Secret Key)** - *Generated When User Created*
 
-.. figure:: images/19.png
+   .. figure:: images/19.png
 
 #. Check the box **Always Trust** and then click **Continue** on the **The certificate is not valid** dialog box.
 
-.. figure:: images/20.png
+   .. figure:: images/20.png
 
 #. Right Click and choose **New Folder**.
 
@@ -99,9 +99,10 @@ In this exercise you will use `Cyberduck <https://cyberduck.io/>`_ to create and
 
      Creating a bucket in this fashion allows for self-service for entitled users, and is no different than a bucket created via the Prism Buckets UI.
 
-.. figure:: images/21.png
 
-.. figure:: images/22.png
+   .. figure:: images/21.png
+
+   .. figure:: images/22.png
 
 If you check in the Objects console, you'll see that a new bucket has been created.
 
@@ -116,37 +117,37 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
     Leave other settings at their default values.
 
-   - **Name** - *Initials*-Splunk_VM
-   - **Description** - (Optional) Description for your VM.
-   - **vCPU(s)** - 2
-   - **Number of Cores per vCPU** - 1
-   - **Memory** - 8 GiB
+    - **Name** - *Initials*-Splunk_VM
+    - **Description** - (Optional) Description for your VM.
+    - **vCPU(s)** - 2
+    - **Number of Cores per vCPU** - 1
+    - **Memory** - 8 GiB
 
-   - Select **+ Add New Disk**
-      - **Type** - DISK
-      - **Operation** - Clone from Image Service
-      - **Image** - CentOS7.qcow2
-      - Select **Add**
+    - Select **+ Add New Disk**
+       - **Type** - DISK
+       - **Operation** - Clone from Image Service
+       - **Image** - CentOS7.qcow2
+       - Select **Add**
 
-  - Select **Add New NIC**
-      - **VLAN Name** - Primary
-      - Select **Add**
+   - Select **Add New NIC**
+       - **VLAN Name** - Primary
+       - Select **Add**
 
-  .. figure:: images/6.png
-  
-  .. figure:: images/7.png
+   .. figure:: images/6.png
+
+   .. figure:: images/7.png
 
 #. Click **Save** to create the VM.
 
 #. Find your VM in the VM list, then choose it.
 
-  .. figure:: images/8.png
+   .. figure:: images/8.png
 
 #. Click **Power On**.
 
-  .. figure:: images/9.png
+   .. figure:: images/9.png
 
-  .. note::
+   .. note::
 
       Make a note of the **IP Address** of the VM.
 
@@ -163,48 +164,48 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
 #. Now let's download the tar files for Splunk and get Splunk installed.
 
-  .. code-block:: bash
+   .. code-block:: bash
 
-    mkdir /opt/splunk
-    cd /tmp
-    curl http://10.42.194.11/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
-    tar -xvf splunk-8.0.1.tar
-    echo '[user_info]' > /tmp/user-seed.conf
-    echo 'USERNAME = admin' >> /tmp/user-seed.conf
-    echo 'PASSWORD = nutanix/4u' >> /tmp/user-seed.conf
-    export SPLUNK_HOME=/opt/splunk
-    export PATH=$SPLUNK_HOME/bin:$PATH
-    cp -rp splunk/* /opt/splunk/
-    mv /tmp/user-seed.conf $SPLUNK_HOME/etc/system/local
-    echo '[clustering]' >> $SPLUNK_HOME/etc/system/local/server.conf
-    echo 'mode = master' >> $SPLUNK_HOME/etc/system/local/server.conf
-    echo 'replication_factor = 1' >> $SPLUNK_HOME/etc/system/local/server.conf
-    echo 'search_factor = 1' >> $SPLUNK_HOME/etc/system/local/server.conf
-    echo 'pass4SymmKey = nutanix/4u' >> $SPLUNK_HOME/etc/system/local/server.conf
-    echo 'cluster_label = cluster1' >> $SPLUNK_HOME/etc/system/local/server.conf
-    splunk start --answer-yes --no-prompt --accept-license
+     mkdir /opt/splunk
+     cd /tmp
+     curl http://10.42.194.11/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+     tar -xvf splunk-8.0.1.tar
+     echo '[user_info]' > /tmp/user-seed.conf
+     echo 'USERNAME = admin' >> /tmp/user-seed.conf
+     echo 'PASSWORD = nutanix/4u' >> /tmp/user-seed.conf
+     export SPLUNK_HOME=/opt/splunk
+     export PATH=$SPLUNK_HOME/bin:$PATH
+     cp -rp splunk/* /opt/splunk/
+     mv /tmp/user-seed.conf $SPLUNK_HOME/etc/system/local
+     echo '[clustering]' >> $SPLUNK_HOME/etc/system/local/server.conf
+     echo 'mode = master' >> $SPLUNK_HOME/etc/system/local/server.conf
+     echo 'replication_factor = 1' >> $SPLUNK_HOME/etc/system/local/server.conf
+     echo 'search_factor = 1' >> $SPLUNK_HOME/etc/system/local/server.conf
+     echo 'pass4SymmKey = nutanix/4u' >> $SPLUNK_HOME/etc/system/local/server.conf
+     echo 'cluster_label = cluster1' >> $SPLUNK_HOME/etc/system/local/server.conf
+     splunk start --answer-yes --no-prompt --accept-license
 
-  .. figure:: images/11.png
+   .. figure:: images/11.png
 
 #. At this point Splunk should be installed and running, but we need to make a small firewall change in order to connect to it.
 
-  .. code-block:: bash
+   .. code-block:: bash
 
-    firewall-cmd --permanent --add-port=8000/tcp
-    firewall-cmd --reload
+     firewall-cmd --permanent --add-port=8000/tcp
+     firewall-cmd --reload
 
 #. Open your web browser and go to **http://<SPLUNK_IP>:8000**.
 
 #. The username and password should be as you set them above:
 
-  - **Username** - admin
-  - **Password** - nutanix/4u
+   - **Username** - admin
+   - **Password** - nutanix/4u
 
-  .. figure:: images/12.png
+   .. figure:: images/12.png
 
 #. There's not a lot going on right now, but before we give Splunk something to do, we need to connect it to Nutanix Objects.
 
-  .. figure:: images/13.png
+   .. figure:: images/13.png
 
 Configure SmartStore
 ++++++++++++++++++++
