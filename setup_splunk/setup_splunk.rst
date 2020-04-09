@@ -116,13 +116,13 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
    .. code-block:: bash
 
-     curl http://10.55.76.10/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+     curl http://10.55.251.38/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
 
 #. If your lab cluster is in PHX, use the following command
 
    .. code-block:: bash
 
-     curl http://10.42.38.10/images/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+     curl http://10.42.194.11/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
 
 #. Now let's expand what we downloaded, install, and configure Splunk.
 
@@ -240,7 +240,7 @@ Now let's install the log generator app, so we can give Splunk something to cons
    .. code-block:: bash
 
      cd /tmp
-     curl -LJO https://github.com/livearchivist/splunk/raw/master/assets/TA-Nutanix.zip -o TA-Nutanix.zip
+     curl -LJO http://10.42.194.11/workshop_staging/Splunk/TA-Nutanix.zip -o TA-Nutanix.zip
      yum install unzip -y
      unzip TA-Nutanix.zip
      cp -r gogen-master/splunk_app_gogen /opt/splunk/etc/apps/
