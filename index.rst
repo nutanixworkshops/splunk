@@ -44,11 +44,9 @@ Agenda
 
 - Introductions
 - Nutanix Presentation
-- A Day in the Life
-- Prism Ops
-- Platform Security
-- Files
-- Flow
+- Getting Started
+- Install Splunk
+- Generate Logs
 
 Introductions
 +++++++++++++
