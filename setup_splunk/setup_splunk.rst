@@ -1,160 +1,13 @@
-.. Adding labels to the beginning of your lab is helpful for linking to the lab from other pages
-.. _splunkobjectslab:
+.. _setup_splunk:
 
-------------------------
-Using Objects for Splunk
-------------------------
+------------
+Setup Splunk
+------------
 
 Overview
 ++++++++
 
-Now that Nutanix is Splunk Smart Store certified, we thought it would be a good time to introduce you to the power of running Splunk on top of Nutanix Objects. In the following lab, you'll walk through the steps of configuring Splunk to write data via SmartStore to Nutanix Objects.
 
-Nutanix Objects is an S3-compatible object storage solution that leverages the underlying Nutanix storage fabric which allows it to benefit from features such as encryption, compression, and erasure coding (EC-X).
-
-Objects allows users to store petabytes of unstructured data on the Nutanix platform, with support for features such as WORM (write once, read many) and object versioning that are required for regulatory compliance, and easy integration with 3rd party backup software and S3-compatible applications.
-
-Lab Setup
-+++++++++
-
-This lab requires both the **WinToolsVM** and **LinuxToolsVM** VMs. If you have already provisioned these during another lab, continue to :ref:`splunkstart`.
-
-#. In **Prism Central**, select :fa:`bars` **> Virtual Infrastructure > VMs**.
-
-#. Click **Create VM**.
-
-#. Select your assigned cluster and click **OK**.
-
-#. Fill out the following fields:
-
-   - **Name** - *Initials*-WinToolsVM
-   - **Description** - (Optional) Description for your VM.
-   - **vCPU(s)** - 2
-   - **Number of Cores per vCPU** - 1
-   - **Memory** - 4 GiB
-
-   - Select **+ Add New Disk**
-      - **Type** - DISK
-      - **Operation** - Clone from Image Service
-      - **Image** - WinToolsVM.qcow2
-      - Select **Add**
-
-   - Select **Add New NIC**
-      - **VLAN Name** - *Assigned User VLAN*
-      - Select **Add**
-
-#. Click **Save** to create the VM.
-
-#. Click **Create VM**.
-
-#. Select your assigned cluster and click **OK**.
-
-#. Fill out the following fields:
-
-   - **Name** - *Initials* -LinuxToolsVM
-   - **Description** - (Optional) Description for your VM.
-   - **vCPU(s)** - 2
-   - **Number of Cores per vCPU** - 1
-   - **Memory** - 4 GiB
-
-   - Select **+ Add New Disk**
-      - **Type** - DISK
-      - **Operation** - Clone from Image Service
-      - **Image** - Linux_ToolsVM.qcow2
-      - Select **Add**
-
-   - Select **Add New NIC**
-      - **VLAN Name** - *Assigned User VLAN*
-      - Select **Add**
-
-#. Click **Save** to create the VM.
-
-#. Select both VMs and click **Actions > Power On**.
-
-.. _splunkstart:
-
-Create Nutanix Objects IAM User Keys
-++++++++++++++++++++++++++++++++++++
-
-In order for Splunk to communicate with Nutanix Objects, you'll need to create a set of API Keys.
-
-#. In **Prism Central** > select :fa:`bars` **> Services > Objects**.
-
-   .. figure:: images/2.png
-
-#. Click on **Access Keys > Add People > Add People not in a directory service**.
-
-   Enter in an email address that is unique (it does not need to be able to receive email).
-
-   .. figure:: images/3.png
-
-#. Click on **Download Keys**. Depending on your browser, it will either open a new tab or download a text file.
-
-    .. note::
-
-        It is important you save the **Access Key** and **Secret Access Key** as it will only be shown once.
-
-
-    .. figure:: images/5.png
-
-    .. figure:: images/4.png
-
-Create Bucket Using IAM User
-++++++++++++++++++++++++++++
-
-Since Object Storage uses API keys to grant access to various buckets, we'll want to create a bucket using the API key we just created above.
-
-A bucket is a sub-repository within an object store which can have policies applied to it, such as versioning, WORM, etc. By default a newly created bucket is a private resource to the creator. The creator of the bucket by default has read/write permissions, and can grant permissions to other users.
-
-In this exercise you will use `Cyberduck <https://cyberduck.io/>`_ to create and use buckets in the object store using your generated access key. Cyberduck is a multi-platform GUI application that supports multiple protocols including FTP, SFTP, WebDAV, and S3.
-
-.. note::
-
-  Cyberduck is already installed on the Windows Tools VM you deployed earlier. If it is not already pinned to the taskbar, you can find it in the Windows menu.
-
-#. Launch **Cyberduck** (Click the Window icon > Down Arrow > Cyberduck).
-
-   If you are prompted to update Cyberduck, click **Skip This Version**.
-
-#. Click on **Open Connection**.
-
-   .. figure:: images/18.png
-
-#. Select **Amazon S3** from the dropdown list.
-
-#. Enter the following fields for the user created earlier, and click **Connect**:
-
-   - **Server**  - *Objects Client Used IP*
-   - **Port**  - 443
-   - **Access Key ID**  - *Generated When User Created*
-   - **Password (Secret Key)** - *Generated When User Created*
-
-   .. figure:: images/19.png
-
-#. Check the box **Always Trust** and then click **Continue** on the **The certificate is not valid** dialog box.
-
-   .. figure:: images/20.png
-
-#. Right Click and choose **New Folder**.
-
-#. Enter the following name for your bucket, and click **Create**:
-
-   - **Bucket Name** - *your-name*-bucket
-
-   .. note::
-
-     Bucket names must be lower case and only contain letters, numbers, periods and hyphens.
-
-     Additionally, all bucket names must be unique within a given Object Store. Note that if you try to create a folder with an existing bucket name (e.g. *your-name*-my-bucket), creation of the folder will not succeed.
-
-     Creating a bucket in this fashion allows for self-service for entitled users, and is no different than a bucket created via the Prism Buckets UI.
-
-
-   .. figure:: images/21.png
-
-   .. figure:: images/22.png
-
-If you check in the Objects console, you'll see that a new bucket has been created.
 
 Install Splunk
 ++++++++++++++
@@ -258,7 +111,23 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
      mkdir /opt/splunk
      cd /tmp
-     curl http://10.42.194.11/workshop_staging/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+
+#. If your lab cluster is in RTP, use the following command
+
+   .. code-block:: bash
+
+     curl http://10.55.76.10/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+
+#. If your lab cluster is in PHX, use the following command
+
+   .. code-block:: bash
+
+     curl http://10.42.38.10/images/Splunk/splunk-8.0.1.tar -o splunk-8.0.1.tar
+
+#. Now let's expand what we downloaded, install, and configure Splunk.
+
+   .. code-block:: bash
+
      tar -xvf splunk-8.0.1.tar
      echo '[user_info]' > /tmp/user-seed.conf
      echo 'USERNAME = admin' >> /tmp/user-seed.conf
@@ -302,8 +171,9 @@ Configure SmartStore
 
 #. Gather the required information:
 
-   - MYOBJECTSACCESSKEY: You should have this from the IAM Key section above
-   - MYOBJECTSSECRETKEY: You should have this from the IAM Key section above
+   - MYOBJECTSACCESSKEY: You should have this from the *IAM Key* section above
+   - MYOBJECTSSECRETKEY: You should have this from the *IAM Key* section above
+   - MYAWESOMEBUCKETHERE: You should have this from the *Create Bucket Using IAM User* section above
    - OBJECTSCLIENTIP: You can get this from **☰ Menu > Services > Objects**
 
    .. figure:: images/17.png
@@ -429,5 +299,3 @@ Takeaways
 +++++++++
 
 - SmartStore is simple to configure with Nutanix Objects
-- You can easily generate test data for your POCs using the GoGen data generator
-- Nutanix Objects makes it easy for your customers to migrate to SmartStore, giving them the flexibility to scale incrementally as their Splunk environment grows.
