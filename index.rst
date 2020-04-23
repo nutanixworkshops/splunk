@@ -6,7 +6,7 @@
   :name: _labs
   :hidden:
 
-  gettingstarted/gettingstarted
+  objects_splunk/objects_splunk
   setup_splunk/setup_splunk
   generate_logs/generate_logs
 
@@ -18,14 +18,6 @@ Getting Started
 ---------------
 
 Welcome to the Private Cloud: Splunk on AHV with Objects Bootcamp! This workbook accompanies an instructor-led session that introduces running Splunk on Nutanix AHV and many common management tasks.
-
-Splunk SmartStore coupled with Nutanix Objects is a great way to scale any Splunk Deployment, while maintaining control on costs.
-
-Now that Nutanix is Splunk Smart Store certified, we thought it would be a good time to introduce you to the power of running Splunk on top of Nutanix Objects. In the following lab, you'll walk through the steps of configuring Splunk to write data via SmartStore to Nutanix Objects.
-
-Nutanix Objects is an S3-compatible object storage solution that leverages the underlying Nutanix storage fabric which allows it to benefit from features such as encryption, compression, and erasure coding (EC-X).
-
-Objects allows users to store petabytes of unstructured data on the Nutanix platform, with support for features such as WORM (write once, read many) and object versioning that are required for regulatory compliance, and easy integration with 3rd party backup software and S3-compatible applications.
 
 At the end of the bootcamp, attendees should understand the Core concepts and technologies that make up the Nutanix Enterprise Cloud stack.
 

@@ -7,7 +7,9 @@ Setup Splunk
 Overview
 ++++++++
 
+Now that we've configured our Nutanix Objects storage for use by Splunk, we need to deploy Splunk on our Nutanix cluster. The Nutanix platform operates and scales Splunk along with other hosted services, providing a single scalable infrastructure for all deployments. Existing sources can send machine data to the Splunk environment on Nutanix over the network. The following figure shows a high-level view of the Splunk on Nutanix solution.
 
+.. figure:: images/2.png
 
 Install Splunk
 ++++++++++++++
@@ -18,23 +20,22 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
 #. Fill out the following fields and click **Save**.
 
-    Leave other settings at their default values.
+   Leave other settings at their default values.
 
-    - **Name** - *Initials*-Splunk_VM
-    - **Description** - (Optional) Description for your VM.
-    - **vCPU(s)** - 2
-    - **Number of Cores per vCPU** - 1
-    - **Memory** - 8 GiB
-
-    - Select **+ Add New Disk**
-       - **Type** - DISK
-       - **Operation** - Clone from Image Service
-       - **Image** - CentOS7.qcow2
-       - Select **Add**
+   - **Name** - *Initials*-Splunk_VM
+   - **Description** - (Optional) Description for your VM.
+   - **vCPU(s)** - 2
+   - **Number of Cores per vCPU** - 1
+   - **Memory** - 8 GiB
+   - Select **+ Add New Disk**
+     - **Type** - DISK
+     - **Operation** - Clone from Image Service
+     - **Image** - CentOS7.qcow2
+     - Select **Add**
 
    - Select **Add New NIC**
-       - **VLAN Name** - Primary
-       - Select **Add**
+     - **VLAN Name** - Primary
+     - Select **Add**
 
    .. figure:: images/6.png
 
@@ -58,16 +59,16 @@ Now let's set up a Splunk virtual machine to connect to Objects.
 
 #. Click **Update** in the Prism UI for the VM, then modify the **vDisk**.
 
-      .. figure:: images/26.png
+   .. figure:: images/26.png
 
 #. Change the **vDisk** size to **100GiB** and click save.
 
-      .. figure:: images/27.png
+   .. figure:: images/27.png
 
 #. SSH into the Splunk VM using the following credentials (Putty on Windows, Terminal on Mac):
 
-    - **Username** - root
-    - **Password** - nutanix/4u
+   - **Username** - root
+   - **Password** - nutanix/4u
 
    .. code-block:: bash
 
