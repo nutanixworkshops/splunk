@@ -1,8 +1,8 @@
-.. _gettingstarted:
+.. _objects_splunk:
 
----------------
-Getting Started
----------------
+-------------------------------------
+Nutanix Objects with Splunk Overview
+-------------------------------------
 
 Welcome to the Nutanix Objects with Splunk lab. In this lab, we explore why Nutanix is the ideal platform for hosting Splunk and how Nutanix Objects can help alleviate some of the pain points around
 scaling Splunk storage in a cost effective manner.
@@ -14,6 +14,8 @@ Nutanix Objects is a fully S3-compatible Object store, and is fully compliant wi
 (known as Objects Dedicated) or on an existing HCI Cluster (known as Objects of AOS)
 
 And because Nutanix Objects takes over the responsibility for maintaining high availability of the data, cold storage capacity requirements can be reduced.
+
+.. figure:: images/0.png
 
 Splunk workloads benefit from a number of key features of the Nutanix platform, including:
 
