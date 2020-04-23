@@ -11,9 +11,9 @@ Historically, deploying Splunk on traditional infrastructure proved a difficult 
 With the introduction of Splunk SmartStore, Splunk can offload warm and cold storage to a low cost remote store, such as S3-compatible Object storage.
 
 Nutanix Objects is a fully S3-compatible Object store, and is fully compliant with the Amazon AWS S3 HTTP REST API, so it can be utilized by Splunk's SmartStore natively. Nutanix Objects can be deployed in a dedicated cluster
-(known as Objects Dedicated) or on an existing HCI Cluster (known as Objects of AOS)
+(known as Objects Dedicated) or on an existing HCI Cluster (known as Objects for AOS)
 
-And because Nutanix Objects takes over the responsibility for maintaining high availability of the data, cold storage capacity requirements can be reduced.
+Nutanix Objects takes over the responsibility for maintaining high availability of the data and cold storage capacity requirements can be reduced, offering a large TCO improvement, as indicated in the figure below:
 
 .. figure:: images/0.png
 
