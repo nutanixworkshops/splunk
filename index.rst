@@ -17,7 +17,7 @@
 Getting Started
 ---------------
 
-Welcome to the Private Cloud: Splunk on AHV with Objects Bootcamp! This workbook accompanies an instructor-led session that introduces running Splunk on Nutanix AHV and many common management tasks.
+Welcome to the Private Cloud: Splunk on AHV with Objects Bootcamp! In this Bootcamp, we explore why Nutanix is the ideal platform for hosting Splunk and how Nutanix Objects can help alleviate some of the pain points around scaling Splunk storage in a cost effective manner.This workbook accompanies an instructor-led session that introduces running Splunk on Nutanix AHV and many common management tasks.
 
 At the end of the bootcamp, attendees should understand the Core concepts and technologies that make up the Nutanix Enterprise Cloud stack.
 
