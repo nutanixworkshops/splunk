@@ -1,11 +1,8 @@
 .. _objects_splunk:
 
 -------------------------------------
-Nutanix Objects with Splunk Overview
+Splunk and Objects Overview
 -------------------------------------
-
-Welcome to the Nutanix Objects with Splunk lab. In this lab, we explore why Nutanix is the ideal platform for hosting Splunk and how Nutanix Objects can help alleviate some of the pain points around
-scaling Splunk storage in a cost effective manner.
 
 Historically, deploying Splunk on traditional infrastructure proved a difficult task, both in correctly sizing storage for Hot and Cold tiers and in trying to keep costs reasonable.
 With the introduction of Splunk SmartStore, Splunk can offload warm and cold storage to a low cost remote store, such as S3-compatible Object storage.
