@@ -27,6 +27,7 @@ Now let's set up a Splunk virtual machine to connect to Objects.
    - **vCPU(s)** - 2
    - **Number of Cores per vCPU** - 1
    - **Memory** - 8 GiB
+
    - Select **+ Add New Disk**
      - **Type** - DISK
      - **Operation** - Clone from Image Service
