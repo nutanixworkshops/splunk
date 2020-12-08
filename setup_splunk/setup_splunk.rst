@@ -210,7 +210,7 @@ Configure SmartStore
 
      [volume:remote_store]
      storageType = remote
-     path = s3://MYAWESOMEBUCKETHERE/
+     path = s3://MYAWESOMEBUCKETHERE
      remote.s3.access_key = MYOBJECTSACCESSKEY
      remote.s3.secret_key = MYOBJECTSSECRETKEY
      remote.s3.endpoint = https://OBJECTSCLIENTIP
